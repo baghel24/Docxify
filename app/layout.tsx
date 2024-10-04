@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib/utils"
 import { ReactNode } from "react"
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -16,6 +18,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: {children : ReactNode}) {
   return (
+    <ClerkProvider
+    
+    appearance={
+      {
+        baseTheme: dark,
+        variables: {
+          colorPrimary: "#3371FF",
+          fontSize:'16px'
+        },
+      }
+    }>
+
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
@@ -23,10 +37,11 @@ export default function RootLayout({ children }: {children : ReactNode}) {
           "min-h-screen font-sans antialiased",
           fontSans.variable
         )}
-      >
+        >
         {children}
       </body>
     </html>
+        </ClerkProvider>
   )
 }
 
